@@ -7,6 +7,8 @@ season = sys.argv[1] #grab season from command line arg, a single year correspon
 directory = 'Data/PlayerTrackingData/' + season #set directory var
 
 #check if directory exists for this season; if not, create it
+if not os.path.exists('Data/PlayerTrackingData/'):
+	os.mkdir('Data/PlayerTrackingData/') 
 if not os.path.exists(directory):
 	os.mkdir(directory)
 
@@ -35,6 +37,6 @@ for url_extension in request_urls:
 	f.write(response.text) #write response data to file
 	f.close #close file
 	print "System sleeping, just retrieved " + url_extension
-	time.sleep(10) #put program to sleep to avoid overloading the server
+	time.sleep(10) #put program to sleep to avoid overloading the server; definitely could be shortened, but I wanted to be safe with the large number or requests being made
 	
 

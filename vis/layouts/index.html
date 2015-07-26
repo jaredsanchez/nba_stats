@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NBA Stats Visualization</title>
+	<link rel="stylesheet" type="text/css" href="../styles/index.css">
+	<script type="text/javascript" src="../js/index.js"></script>
+	<script type="text/javascript" src="../js/Chart.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+</head>
+
+
+<body>
+	<div id="team-or-player" class="outer-wrapper">
+		<h1 class="title">Select Team/Player</h1>
+		<ul class="select-list" id="tp-select-wrapper">
+			<li id="teams">Teams</li>
+			<li id="players">Players</li>
+		</ul>
+	</div>
+	<div id="season" class="outer-wrapper">
+		<h1 class="title">Select Seasons</h1>
+		<ul class="select-list" id="season-select-wrapper">
+			<li id="all">All</li>
+			<li id="2015">2014</li>
+		</ul>
+	</div>
+	<div id="stats" class="outer-wrapper">
+		<h1 class="title">Select Stats</h1>
+		<span id="basic" class="inner-wrapper">
+			<h2>Basic</h2>
+			<ul class="select-list">
+				<li>MIN</li>
+				<li>FGM</li>
+				<li>FGA</li>
+				<li>FG%</li>
+				<li>FG3M</li>
+				<li>FG3A</li>
+				<li>FG3%</li>
+				<li>FTM</li>
+				<li>FTA</li>
+				<li>FT%</li>
+				<li>OREB</li>
+				<li>DREB</li>
+				<li>REB</li>
+				<li>ASST</li>
+				<li>STL</li>
+				<li>BLO</li>
+				<li>TO</li>
+				<li>PF</li>
+				<li>PTS</li>
+				<li>+/-</li>
+			</ul>
+		</span>
+		<span id="advanced" class="inner-wrapper middle">
+			<h2 >Advanced</h2>
+			<ul class="select-list">
+				<li>MIN</li>
+				<li>FGM</li>
+				<li>FGA</li>
+				<li>FG%</li>
+				<li>FG3M</li>
+				<li>FG3A</li>
+				<li>FG3%</li>
+				<li>FTM</li>
+				<li>FTA</li>
+				<li>FT%</li>
+				<li>OREB</li>
+				<li>DREB</li>
+				<li>REB</li>
+				<li>ASST</li>
+				<li>STL</li>
+				<li>BLO</li>
+				<li>TO</li>
+				<li>PF</li>
+				<li>PTS</li>
+				<li>+/-</li>
+			</ul>
+		</span>
+		<span id="pt" class="inner-wrapper">
+			<h2>Player Tracking</h2>
+			<ul class="select-list">
+				<li>MIN</li>
+				<li>FGM</li>
+				<li>FGA</li>
+				<li>FG%</li>
+				<li>FG3M</li>
+				<li>FG3A</li>
+				<li>FG3%</li>
+				<li>FTM</li>
+				<li>FTA</li>
+				<li>FT%</li>
+				<li>OREB</li>
+				<li>DREB</li>
+				<li>REB</li>
+				<li>ASST</li>
+				<li>STL</li>
+				<li>BLO</li>
+				<li>TO</li>
+				<li>PF</li>
+				<li>PTS</li>
+				<li>+/-</li>
+			</ul>
+		</span>
+	</div>
+	<canvas id="myChart" width="400" height="400"></canvas>
+</body>
+</html>
