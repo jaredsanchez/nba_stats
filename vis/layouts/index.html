@@ -11,23 +11,24 @@
 
 <body>
 	<div id="team-or-player" class="outer-wrapper">
-		<h1 class="title">Select Team/Player</h1>
+		<h2 class="title">Select Team/Player</h2>
 		<ul class="select-list" id="tp-select-wrapper">
 			<li id="teams">Teams</li>
 			<li id="players">Players</li>
 		</ul>
+		<input type="text" id="search-bar"/>
 	</div>
 	<div id="season" class="outer-wrapper">
-		<h1 class="title">Select Seasons</h1>
+		<h2 class="title">Select Seasons</h2>
 		<ul class="select-list" id="season-select-wrapper">
 			<li id="all">All</li>
 			<li id="2015">2014</li>
 		</ul>
 	</div>
 	<div id="stats" class="outer-wrapper">
-		<h1 class="title">Select Stats</h1>
+		<h2 class="title">Select Stats</h2>
 		<span id="basic" class="inner-wrapper">
-			<h2>Basic</h2>
+			<h3>Basic</h3>
 			<ul class="select-list">
 				<li>MIN</li>
 				<li>FGM</li>
@@ -52,56 +53,51 @@
 			</ul>
 		</span>
 		<span id="advanced" class="inner-wrapper middle">
-			<h2 >Advanced</h2>
+			<h3 >Advanced</h3>
 			<ul class="select-list">
-				<li>MIN</li>
-				<li>FGM</li>
-				<li>FGA</li>
-				<li>FG%</li>
-				<li>FG3M</li>
-				<li>FG3A</li>
-				<li>FG3%</li>
-				<li>FTM</li>
-				<li>FTA</li>
-				<li>FT%</li>
-				<li>OREB</li>
-				<li>DREB</li>
-				<li>REB</li>
-				<li>ASST</li>
-				<li>STL</li>
-				<li>BLO</li>
-				<li>TO</li>
-				<li>PF</li>
-				<li>PTS</li>
-				<li>+/-</li>
+				<li>OFF Rating</li>
+				<li>DEF Rating</li>
+				<li>NET Rating</li>
+				<li>AST%</li>
+				<li>AST TOV</li>
+				<li>AST Ratio</li>
+				<li>OREB%</li>
+				<li>DREB%</li>
+				<li>REB%</li>
+				<li>TM TOV %</li>
+				<li>EFG%</li>
+				<li>TS</li>
+				<li>USG%</li>
+				<li>PACE</li>
+				<li>PIE</li>
 			</ul>
 		</span>
 		<span id="pt" class="inner-wrapper">
-			<h2>Player Tracking</h2>
+			<h3>Player Tracking</h3>
 			<ul class="select-list">
-				<li>MIN</li>
-				<li>FGM</li>
-				<li>FGA</li>
+				<li>SPD</li>
+				<li>DIST</li>
+				<li>ORBC</li>
+				<li>DRBC</li>
+				<li>RBC</li>
+				<li>TCHS</li>
+				<li>SAST</li>
+				<li>FTAST</li>
+				<li>PASS</li>
+				<li>AST</li>
+				<li>CFGM</li>
+				<li>CFGA</li>
+				<li>CFG%</li>
+				<li>UFGM</li>
+				<li>UFGA</li>
+				<li>UFG%</li>
 				<li>FG%</li>
-				<li>FG3M</li>
-				<li>FG3A</li>
-				<li>FG3%</li>
-				<li>FTM</li>
-				<li>FTA</li>
-				<li>FT%</li>
-				<li>OREB</li>
-				<li>DREB</li>
-				<li>REB</li>
-				<li>ASST</li>
-				<li>STL</li>
-				<li>BLO</li>
-				<li>TO</li>
-				<li>PF</li>
-				<li>PTS</li>
-				<li>+/-</li>
+				<li>DFGM</li>
+				<li>DFGA</li>
+				<li>DFG%</li>
 			</ul>
 		</span>
 	</div>
-	<canvas id="myChart" width="400" height="400"></canvas>
+	<canvas id="myChart"></canvas>
 </body>
 </html>
