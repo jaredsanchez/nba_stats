@@ -16,9 +16,6 @@ li {
   background-color: white; }
 
 li:hover {
-  border-color: #05B8CC;
-  background-color: #05B8CC;
-  color: white;
   cursor: pointer; }
 
 .outer-wrapper, .inner-wrapper {
@@ -37,13 +34,13 @@ li:hover {
   color: white;
   cursor: pointer; }
 
-#search-bar {
+#autocomplete {
   width: 60%;
   font-size: 28px;
   color: #919191;
   text-align: center; }
 
-#search-bar:focus {
+#autocomplete:focus {
   outline: 0; }
 
 .inner-wrapper {

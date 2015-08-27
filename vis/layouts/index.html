@@ -3,8 +3,12 @@
 <head>
 	<title>NBA Stats Visualization</title>
 	<link rel="stylesheet" type="text/css" href="../styles/index.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> 
 	<script type="text/javascript" src="../js/index.js"></script>
 	<script type="text/javascript" src="../js/Chart.js"></script>
+	<script type="text/javascript" src="../js/mappings.js"></script>
+	<script type="text/javascript" src="../js/visualizationData.js"></script>
+	<script type="text/javascript" src="../js/jquery.autocomplete.min.js"></script>
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 </head>
 
@@ -13,16 +17,18 @@
 	<div id="team-or-player" class="outer-wrapper">
 		<h2 class="title">Select Team/Player</h2>
 		<ul class="select-list" id="tp-select-wrapper">
-			<li id="teams">Teams</li>
-			<li id="players">Players</li>
+			<li id="teams" class="selected" onclick="tpAddSelectable(this)">Teams</li>
+			<li id="players" onclick="tpAddSelectable(this)">Players</li>
 		</ul>
-		<input type="text" id="search-bar"/>
+		<input type="text" id="autocomplete"/>
 	</div>
 	<div id="season" class="outer-wrapper">
 		<h2 class="title">Select Seasons</h2>
 		<ul class="select-list" id="season-select-wrapper">
-			<li id="all">All</li>
-			<li id="2015">2014</li>
+			<li id="all" class="selected" onclick="sAddSelectable(this)">All</li>
+			<li id="2014" onclick="sAddSelectable(this)">2014</li>
+			<!-- <li id="2013" onclick="sAddSelectable(this)">2013</li>
+			<li id="2012" onclick="sAddSelectable(this)">2012</li> -->
 		</ul>
 	</div>
 	<div id="stats" class="outer-wrapper">
@@ -30,71 +36,71 @@
 		<span id="basic" class="inner-wrapper">
 			<h3>Basic</h3>
 			<ul class="select-list">
-				<li>MIN</li>
-				<li>FGM</li>
-				<li>FGA</li>
-				<li>FG%</li>
-				<li>FG3M</li>
-				<li>FG3A</li>
-				<li>FG3%</li>
-				<li>FTM</li>
-				<li>FTA</li>
-				<li>FT%</li>
-				<li>OREB</li>
-				<li>DREB</li>
-				<li>REB</li>
-				<li>ASST</li>
-				<li>STL</li>
-				<li>BLO</li>
-				<li>TO</li>
-				<li>PF</li>
-				<li>PTS</li>
-				<li>+/-</li>
+				<li onclick="addSelectable(this)">MIN</li>
+				<li onclick="addSelectable(this)">FGM</li>
+				<li onclick="addSelectable(this)">FGA</li>
+				<li onclick="addSelectable(this)">FG%</li>
+				<li onclick="addSelectable(this)">FG3M</li>
+				<li onclick="addSelectable(this)">FG3A</li>
+				<li onclick="addSelectable(this)">FG3%</li>
+				<li onclick="addSelectable(this)">FTM</li>
+				<li onclick="addSelectable(this)">FTA</li>
+				<li onclick="addSelectable(this)">FT%</li>
+				<li onclick="addSelectable(this)">OREB</li>
+				<li onclick="addSelectable(this)">DREB</li>
+				<li onclick="addSelectable(this)">REB</li>
+				<li onclick="addSelectable(this)">ASST</li>
+				<li onclick="addSelectable(this)">STL</li>
+				<li onclick="addSelectable(this)">BLO</li>
+				<li onclick="addSelectable(this)">TO</li>
+				<li onclick="addSelectable(this)">PF</li>
+				<li onclick="addSelectable(this)">PTS</li>
+				<li onclick="addSelectable(this)">+/-</li>
 			</ul>
 		</span>
 		<span id="advanced" class="inner-wrapper middle">
 			<h3 >Advanced</h3>
 			<ul class="select-list">
-				<li>OFF Rating</li>
-				<li>DEF Rating</li>
-				<li>NET Rating</li>
-				<li>AST%</li>
-				<li>AST TOV</li>
-				<li>AST Ratio</li>
-				<li>OREB%</li>
-				<li>DREB%</li>
-				<li>REB%</li>
-				<li>TM TOV %</li>
-				<li>EFG%</li>
-				<li>TS</li>
-				<li>USG%</li>
-				<li>PACE</li>
-				<li>PIE</li>
+				<li onclick="addSelectable(this)">OFF Rating</li>
+				<li onclick="addSelectable(this)">DEF Rating</li>
+				<li onclick="addSelectable(this)">NET Rating</li>
+				<li onclick="addSelectable(this)">AST%</li>
+				<li onclick="addSelectable(this)">AST TOV</li>
+				<li onclick="addSelectable(this)">AST Ratio</li>
+				<li onclick="addSelectable(this)">OREB%</li>
+				<li onclick="addSelectable(this)">DREB%</li>
+				<li onclick="addSelectable(this)">REB%</li>
+				<li onclick="addSelectable(this)">TM TOV %</li>
+				<li onclick="addSelectable(this)">EFG%</li>
+				<li onclick="addSelectable(this)">TS</li>
+				<li onclick="addSelectable(this)">USG%</li>
+				<li onclick="addSelectable(this)">PACE</li>
+				<li onclick="addSelectable(this)">PIE</li>
 			</ul>
 		</span>
 		<span id="pt" class="inner-wrapper">
 			<h3>Player Tracking</h3>
 			<ul class="select-list">
-				<li>SPD</li>
-				<li>DIST</li>
-				<li>ORBC</li>
-				<li>DRBC</li>
-				<li>RBC</li>
-				<li>TCHS</li>
-				<li>SAST</li>
-				<li>FTAST</li>
-				<li>PASS</li>
-				<li>AST</li>
-				<li>CFGM</li>
-				<li>CFGA</li>
-				<li>CFG%</li>
-				<li>UFGM</li>
-				<li>UFGA</li>
-				<li>UFG%</li>
-				<li>FG%</li>
-				<li>DFGM</li>
-				<li>DFGA</li>
-				<li>DFG%</li>
+				<li onclick="addSelectable(this)">SPD</li>
+				<li onclick="addSelectable(this)">DIST</li>
+				<li onclick="addSelectable(this)">ORBC</li>
+				<li onclick="addSelectable(this)">DRBC</li>
+				<li onclick="addSelectable(this)">RBC</li>
+				<li onclick="addSelectable(this)">TCHS</li>
+				<li onclick="addSelectable(this)">SAST</li>
+				<li onclick="addSelectable(this)">FTAST</li>
+				<li onclick="addSelectable(this)">PASS</li>
+				<li onclick="addSelectable(this)">AST</li>
+				<li onclick="addSelectable(this)">CFGM</li>
+				<li onclick="addSelectable(this)">CFGA</li>
+				<li onclick="addSelectable(this)">CFG%</li>
+				<li onclick="addSelectable(this)">UFGM</li>
+				<li onclick="addSelectable(this)">UFGA</li>
+				<li onclick="addSelectable(this)">UFG%</li>
+				<li onclick="addSelectable(this)">FG%</li>
+				<li onclick="addSelectable(this)">DFGM</li>
+				<li onclick="addSelectable(this)">DFGA</li>
+				<li onclick="addSelectable(this)">DFG%</li>
 			</ul>
 		</span>
 	</div>

@@ -28,7 +28,8 @@ li {
 	display: inline-block; 
 	padding: 5px; 
 	background-color: white;}
-li:hover {@include selected;}
+li:hover {cursor: pointer;}
+
 
 .outer-wrapper {
 	position: relative;
@@ -48,13 +49,13 @@ li:hover {@include selected;}
 // 
 // Start of team/player selction
 // 
-#search-bar {
+#autocomplete {
 	width: 60%;
 	// height: 50px;
 	font-size: 28px;
 	color: $dark-grey;
 	text-align: center; }
-#search-bar:focus {
+#autocomplete:focus {
 	outline: 0;
 }
 
