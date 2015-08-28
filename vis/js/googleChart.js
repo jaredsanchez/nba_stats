@@ -15,7 +15,12 @@ function clearPlot() {
 	chart.clearChart();
 }
 
+// function that checks to make sure all the fields are correct
 function isPlotReady() {
+	if (playerOrTeam === 'teams' && statsSelected.indexOf("SPD") !== -1) {
+		alert("Sorry! There are no speed statistics kept on teams");
+		return false;
+	}
 	if (ptID === undefined) {
 		alert("You need to select a team/player");
 		return false;
@@ -66,22 +71,22 @@ function drawPlot() {
         	// create tooltip with date and opponent
         	newRow.push(customToolTip(newRow[0], currSeason[games[k]]));
 
-            // check if current game is a win or loss
-        	if (currSeason[games[k]]['win_or_loss'] === 'Loss') {
-        		// iterate through all selected stats, adding each for the curr game to the new row
-	            for (var i=0; i<statsSelected.length; i++) {
-	            	newRow.push(currSeason[games[k]]['stats'][statsSelected[i]]); // add the stat
-	            	newRow.push('point {fill-color:#f44336}'); // add the appropriate point customization
-	            	newRow[1] = newRow[1].concat(customToolTipPart2(statsSelected[i], currSeason[games[k]]['stats'][statsSelected[i]].toString(), i));
-	            }
-        	} else {
-        		// iterate through all selected stats, adding each for the curr game to the new row
-	            for (var i=0; i<statsSelected.length; i++) {
-	            	newRow.push(currSeason[games[k]]['stats'][statsSelected[i]]); // add the stat
-	            	newRow.push('point {fill-color:#4caf50}'); // add the appropriate point customization
-	           		newRow[1] = newRow[1].concat(customToolTipPart2(statsSelected[i], currSeason[games[k]]['stats'][statsSelected[i]].toString(), i)); // add custom tooltip for this stat
-	            }
-        	}
+        	// iterate through all selected stats, adding each for the curr game to the new row
+            for (var i=0; i<statsSelected.length; i++) {
+            	newRow.push(currSeason[games[k]]['stats'][statsSelected[i]]); // add the stat
+            	// add the appropriate point customization for win or loss
+            	if (currSeason[games[k]]['win_or_loss'] === 'Loss') {
+            		newRow.push('point {fill-color:#f44336}');
+            	} else {
+            		newRow.push('point {fill-color:#4caf50}');
+            	}
+            	// add custom tool tip for each stat
+            	if (currSeason[games[k]]['stats'][statsSelected[i]] === null) {
+            		newRow[1] = newRow[1].concat(customToolTipPart2(statsSelected[i], '', i));
+            	} else {
+            		newRow[1] = newRow[1].concat(customToolTipPart2(statsSelected[i], currSeason[games[k]]['stats'][statsSelected[i]].toString(), i));
+           		}
+            }
         	// add the closing tag of the tool tip div
         	newRow[1] = newRow[1].concat('</div');
             data.addRows([newRow]);
