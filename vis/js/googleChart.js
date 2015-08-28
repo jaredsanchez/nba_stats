@@ -14,7 +14,24 @@ function clearPlot() {
 	chart.clearChart();
 }
 
+function isPlotReady() {
+	if (ptID === undefined) {
+		alert("You need to select a team/player");
+		return false;
+	}
+	if (statsSelected.length === 0) {
+		alert("You need to select stats to plot");
+		return false
+	}
+	return true
+}
+
 function drawPlot() {
+	// check that all the necessary fields are filled in
+	if (!isPlotReady()) {
+		return
+	}
+	// clear the existing plot
 	if (chart !== undefined) {
 		clearPlot();
 	}
@@ -73,23 +90,6 @@ function drawPlot() {
         // tooltip: {isHtml: true},
         animation: {startup: true, duration: 2000, easing: 'out'},
         colors: ['#2196f3', '#ffc107', '#9c27b0', '#cddc39', '#009688'],
-  //       trendlines: {
-		//     0: {
-		//       type: 'linear',
-		//       color: '#2196f3',
-		//       lineWidth: 3,
-		//       opacity: 0.3,
-		//       showR2: true,
-		//       visibleInLegend: true
-		//     }
-		// }
-		// series: {
-		// 	0: {},
-		// 	1: {},
-		// 	2: {},
-		// 	3: {},
-		// 	4: {},
-		// },
 		trendlines: {
 			0: {
 				type: 'linear',
