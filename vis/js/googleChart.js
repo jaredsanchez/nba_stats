@@ -6,6 +6,7 @@ var currSeason;
 var games;
 var newRow;
 var data;
+var dateHelp;
 // var lossIndexes = [];
 // var svg;
 // var points;
@@ -60,7 +61,8 @@ function drawPlot() {
         // iterate through all the games
         for (var k=0; k<games.length; k++) {
         	// create a new row with current game date
-        	newRow = [new Date(currSeason[games[k]]['date'])];
+        	dateHelp = currSeason[games[k]]['date'].split('-'); // do some stupid js stuff to get the date correct 
+        	newRow = [new Date(Date.UTC(dateHelp[0], (parseInt(dateHelp[1])-1).toString(), (parseInt(dateHelp[2])+1).toString()))]; // do some stupid js stuff to get the date correct 
         	// create tooltip with date and opponent
         	newRow.push(customToolTip(newRow[0], currSeason[games[k]]));
 
