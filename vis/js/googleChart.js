@@ -90,34 +90,55 @@ function drawPlot() {
         // tooltip: {isHtml: true},
         animation: {startup: true, duration: 2000, easing: 'out'},
         colors: ['#2196f3', '#ffc107', '#9c27b0', '#cddc39', '#009688'],
-		trendlines: {
-			0: {
-				type: 'linear',
-        		visibleInLegend: true,
-			},
-			1: {
-				type: 'linear',
-        		visibleInLegend: true,
-			},
-			2: {
-				type: 'linear',
-        		visibleInLegend: true,
-			},
-			3: {
-				type: 'linear',
-        		visibleInLegend: true,
-			},
-			4: {
-				type: 'linear',
-        		visibleInLegend: true,
-			},
-		}
+		trendlines: addTrendLines(),
     };
 
     chart = new google.visualization.LineChart(document.getElementById('chart_div'));
     chart.draw(data, options);
 }
 
+function addTrendLines() {
+	if (document.getElementById('trend-lines').checked === true) {
+		return {
+			0: {
+				type: 'linear',
+	    		visibleInLegend: true,
+	    		opacity: 0.5,
+	    		pointsVisible: false,
+	    		showR2: true,
+	    		labelInLegend: statsSelected[0] + ' Trend Line',},
+			1: {
+				type: 'linear',
+	    		visibleInLegend: true,
+	    		opacity: 0.5,
+	    		pointsVisible: false,
+	    		showR2: true,
+	    		labelInLegend: statsSelected[1] + ' Trend Line',},
+			2: {
+				type: 'linear',
+	    		visibleInLegend: true,
+	    		opacity: 0.5,
+	    		pointsVisible: false,
+	    		showR2: true,
+	    		labelInLegend: statsSelected[2] + ' Trend Line',},
+			3: {
+				type: 'linear',
+	    		visibleInLegend: true,
+	    		opacity: 0.5,
+	    		pointsVisible: false,
+	    		showR2: true,
+	    		labelInLegend: statsSelected[3] + ' Trend Line',},
+			4: {
+				type: 'linear',
+	    		visibleInLegend: true,
+	    		opacity: 0.5,
+	    		pointsVisible: false,
+	    		showR2: true,
+	    		labelInLegend: statsSelected[4] + ' Trend Line',},
+		}
+	}
+	return null
+}
 
 
 // // // 

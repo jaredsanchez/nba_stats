@@ -106,9 +106,10 @@
 			</ul>
 		</span>
 	</div>
-	<!-- <div onclick="generatePlot()">CLICK ME</div> -->
-	<div id="generate" onclick="drawPlot()">Generate Plot</div>
-	<!-- <canvas id="myChart"></canvas> -->
+	<div class="generate-wrapper">
+		<div id="generate" onclick="drawPlot()">Generate Plot</div>
+		<input id="trend-lines" type="checkbox">Add Trend Lines
+	</div>
 	<div id="chart_div"></div>
 </body>
 </html>

@@ -18,7 +18,7 @@ li, #generate {
 li:hover, #generate:hover {
   cursor: pointer; }
 
-.outer-wrapper, .inner-wrapper {
+.outer-wrapper, .inner-wrapper, .generate-wrapper {
   position: relative;
   width: 1000px;
   margin: 0 auto;
@@ -91,7 +91,7 @@ h3 {
 
 #generate {
   width: 200px;
-  display: block;
+  display: inline-block;
   margin: 0 auto;
   margin-top: 20px;
   font-size: 25px;
@@ -102,5 +102,12 @@ h3 {
   background-color: #05B8CC;
   color: white;
   cursor: pointer; }
+
+.generate-wrapper {
+  padding-bottom: 0px;
+  border: 0px none #f0f0f0; }
+
+#trend-lines {
+  display: inline; }
 
 /*# sourceMappingURL=index.css.map */
