@@ -65,6 +65,8 @@ function drawPlot() {
         games = Object.keys(currSeason).sort(); // get game id's from currSeason and sort so they are in order
         // iterate through all the games
         for (var k=0; k<games.length; k++) {
+        	console.log(games[k]);
+        	console.log(currSeason[games[k]]);
         	// create a new row with current game date
         	dateHelp = currSeason[games[k]]['date'].split('-'); // do some stupid js stuff to get the date correct 
         	newRow = [new Date(Date.UTC(dateHelp[0], (parseInt(dateHelp[1])-1).toString(), (parseInt(dateHelp[2])+1).toString()))]; // do some stupid js stuff to get the date correct 
@@ -81,7 +83,7 @@ function drawPlot() {
             		newRow.push('point {fill-color:#4caf50}');
             	}
             	// add custom tool tip for each stat
-            	if (currSeason[games[k]]['stats'][statsSelected[i]] === null) {
+            	if (currSeason[games[k]]['stats'][statsSelected[i]] === null || currSeason[games[k]]['stats'][statsSelected[i]] === undefined) {
             		newRow[1] = newRow[1].concat(customToolTipPart2(statsSelected[i], '', i));
             	} else {
             		newRow[1] = newRow[1].concat(customToolTipPart2(statsSelected[i], currSeason[games[k]]['stats'][statsSelected[i]].toString(), i));
