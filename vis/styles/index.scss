@@ -123,6 +123,41 @@ h3 {
 #trend-lines {
 	display: inline;
 }
+// tool tip stuff
+#plot-tool-tip {
+	padding:5px 5px 5px 5px; 
+	color:black;
+	font-size: 12px;}
+.bold {
+	font-weight: bold;
+	font-size: 15px;}
+.box {
+	float: left;
+    width: 8px;
+    height: 8px;
+    margin-right: 5px;
+    margin-top: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,.2);
+}
+.zero{background-color: #2196f3}
+.one{background-color: #ffc107}
+.two{background-color: #9c27b0}
+.three{background-color: #cddc39}
+.four{background-color: #009688}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

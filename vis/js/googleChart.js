@@ -43,6 +43,8 @@ function drawPlot() {
 
 	// add date column to DataTable
 	data.addColumn('date', 'Date');
+	// add custom tooltip column
+	data.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}})
 	
 	// add all selected stats as columns in DataTable
 	for (var i=0; i<statsSelected.length; i++) {
@@ -59,35 +61,38 @@ function drawPlot() {
         for (var k=0; k<games.length; k++) {
         	// create a new row with current game date
         	newRow = [new Date(currSeason[games[k]]['date'])];
+        	// create tooltip with date and opponent
+        	newRow.push(customToolTip(newRow[0], currSeason[games[k]]));
+
             // check if current game is a win or loss
         	if (currSeason[games[k]]['win_or_loss'] === 'Loss') {
         		// iterate through all selected stats, adding each for the curr game to the new row
 	            for (var i=0; i<statsSelected.length; i++) {
 	            	newRow.push(currSeason[games[k]]['stats'][statsSelected[i]]); // add the stat
 	            	newRow.push('point {fill-color:#f44336}'); // add the appropriate point customization
+	            	newRow[1] = newRow[1].concat(customToolTipPart2(statsSelected[i], currSeason[games[k]]['stats'][statsSelected[i]].toString(), i));
 	            }
         	} else {
         		// iterate through all selected stats, adding each for the curr game to the new row
 	            for (var i=0; i<statsSelected.length; i++) {
 	            	newRow.push(currSeason[games[k]]['stats'][statsSelected[i]]); // add the stat
 	            	newRow.push('point {fill-color:#4caf50}'); // add the appropriate point customization
+	           		newRow[1] = newRow[1].concat(customToolTipPart2(statsSelected[i], currSeason[games[k]]['stats'][statsSelected[i]].toString(), i)); // add custom tooltip for this stat
 	            }
         	}
+        	// add the closing tag of the tool tip div
+        	newRow[1] = newRow[1].concat('</div');
             data.addRows([newRow]);
         }
     }
 
     var options = {
         // title: 'Stats Analysis',
-        // curveType: 'function',
-        // hAxis: {title: 'Date', minValue: 0, maxValue: data.Gf.length},
-        // vAxis: {title: 'Stat Values', minValue: 0, maxValue: 100},
         legend: {position: 'right'}, 
         backgroundColor: '#FAFAFA',
-        // explorer: {},
         pointSize: 3,
         focusTarget: 'category',
-        // tooltip: {isHtml: true},
+        tooltip: {isHtml: true},
         animation: {startup: true, duration: 2000, easing: 'out'},
         colors: ['#2196f3', '#ffc107', '#9c27b0', '#cddc39', '#009688'],
 		trendlines: addTrendLines(),
@@ -97,6 +102,56 @@ function drawPlot() {
     chart.draw(data, options);
 }
 
+// function to generate html for the first part of the plot tooltips (Date, Opponent, Outcome)
+function customToolTip(date, game) {
+	return '<div id="plot-tool-tip">' +
+				'<div class="bold">' + date.toString().substring(0,15) + '</div>' + // date
+				'<div>' + 'Opponent: ' + '<span class="bold">' + game['opponent'] + '</span></div>' + // opponent
+				'<div>' + 'Outcome: ' + '<span class="bold">' + game['win_or_loss'] + '</span></div>' // outcome of game
+}
+
+// function to generate html for the second part of the plot tooltips (all the stats and their values)
+function customToolTipPart2(stat, value, i) {
+	switch (i) {
+		case 0:
+			return '<div>' + 
+					'<span class="box zero"></span>' + // box color
+					'<span>' + stat + ': ' + // stat name
+						 '<span class="bold">' + value + '</span>' + // stat value
+					'</span>' +
+				'</div>'
+		case 1:
+			return '<div>' + 
+					'<span class="box one"></span>' + // box color
+					'<span>' + stat + ': ' + // stat name
+						 '<span class="bold">' + value + '</span>' + // stat value
+					'</span>' +
+				'</div>'
+		case 2:
+			return '<div>' + 
+					'<span class="box two"></span>' + // box color
+					'<span>' + stat + ': ' + // stat name
+						 '<span class="bold">' + value + '</span>' + // stat value
+					'</span>' +
+				'</div>'
+		case 3: 
+			return '<div>' + 
+					'<span class="box three"></span>' + // box color
+					'<span>' + stat + ': ' + // stat name
+						 '<span class="bold">' + value + '</span>' + // stat value
+					'</span>' +
+				'</div>'
+		case 4:
+			return '<div>' + 
+					'<span class="box four"></span>' + // box color
+					'<span>' + stat + ': ' + // stat name
+						 '<span class="bold">' + value + '</span>' + // stat value
+					'</span>' +
+				'</div>'
+	} 
+}
+
+// function to return the appropriate trendLines object to pass as an option to the chart
 function addTrendLines() {
 	if (document.getElementById('trend-lines').checked === true) {
 		return {
