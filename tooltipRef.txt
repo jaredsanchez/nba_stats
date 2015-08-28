@@ -1,0 +1,39 @@
+<li href="#" class="tooltip">
+    Tooltip
+    <div>
+        Field Goal Percentage
+    </div>
+</li>
+
+
+li.tooltip {
+    margin-left:100px; 
+    margin-top:100px;
+    position: absolute;
+    list-style-type: none;
+}
+/* Can Remove stuff above */
+
+li.tooltip:hover {text-decoration:none;} 
+li.tooltip div {
+    z-index:10;
+    display:none; 
+    padding:14px 20px;
+    margin-top:-75px; 
+    margin-left:-100px;
+    width:200px; 
+    line-height:16px;
+    text-align: center;
+}
+li.tooltip:hover div{
+    display:inline; 
+    position:absolute; 
+    color:#111;
+    border:1px solid rgb(145, 145, 145); 
+    background: white;}
+li.tooltip div
+{
+    /* make border radius a mixin */
+    border-radius:4px;
+    box-shadow: 5px 5px 8px #CCC;
+}
