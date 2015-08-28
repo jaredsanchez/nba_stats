@@ -20,7 +20,7 @@ def processBasicPlayerStats(bs_obj, data, mappings, home_team_id, vis_team_id, w
 		opp_abbr = mappings['teams'][vis_team_id]['abbr'] if player_stats[1] == home_team_id else mappings['teams'][home_team_id]['abbr'] #set team_abbr var
 
 		#determine if player's team won the game
-		w_a = 'Win' if player_stats[1] == winning_team_id else 'Loss'
+		w_a = 'Win' if str(player_stats[1]) == winning_team_id else 'Loss'
 
 		#check if player_id in data dic, if not creat dict for them
 		if player_id not in data['players']: data['players'][player_id] = {}
@@ -29,6 +29,12 @@ def processBasicPlayerStats(bs_obj, data, mappings, home_team_id, vis_team_id, w
 
 		#create game id dict for this player in this season; set game id values and create stats dict
 		stat_vals = player_stats[8:] #stats vals
+
+		# convert minutes from a string into an integer
+		if stat_vals[0] != None:
+			minutes_as_list = stat_vals[0].split(':')
+			stat_vals[0] = float(minutes_as_list[0] + '.' + str(int(minutes_as_list[1])/60))
+
 		stats = dict(zip(stat_keys, stat_vals))
 		data['players'][player_id][game_season][game_id] = {'date': game_date, 'team': team_abbr, 'opponent': opp_abbr, 'home_or_away': h_a, 'stats': stats, 'win_or_loss': w_a} 
 
@@ -60,7 +66,7 @@ def processBasicTeamStats(bs_obj, data, mappings, home_team_id, vis_team_id, win
 		#creat dict for this game for this team in this season
 		stat_vals = team_stats[5:] #stats vals
 		stats = dict(zip(stat_keys, stat_vals))
-		data['teams'][team_id][game_season][game_id] = {'data': game_date, 'opponent': opp_abbr, 'home_or_away': h_a, 'stats': stats, 'win_or_loss': w_a}
+		data['teams'][team_id][game_season][game_id] = {'date': game_date, 'opponent': opp_abbr, 'home_or_away': h_a, 'stats': stats, 'win_or_loss': w_a}
 
 
 

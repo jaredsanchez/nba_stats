@@ -7,9 +7,12 @@
 	<script type="text/javascript" src="../js/index.js"></script>
 	<script type="text/javascript" src="../js/Chart.js"></script>
 	<script type="text/javascript" src="../js/mappings.js"></script>
-	<script type="text/javascript" src="../js/visualizationData.js"></script>
+	<script type="text/javascript" src="../js/visualizationdata.js"></script>
 	<script type="text/javascript" src="../js/jquery.autocomplete.min.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="../js/googleChart.js"></script>
+
 </head>
 
 
@@ -25,10 +28,10 @@
 	<div id="season" class="outer-wrapper">
 		<h2 class="title">Select Seasons</h2>
 		<ul class="select-list" id="season-select-wrapper">
-			<li id="all" class="selected" onclick="sAddSelectable(this)">All</li>
-			<li id="2014" onclick="sAddSelectable(this)">2014</li>
-			<!-- <li id="2013" onclick="sAddSelectable(this)">2013</li>
-			<li id="2012" onclick="sAddSelectable(this)">2012</li> -->
+			<li id="all" class="selected" onclick="seasonAddSelectable(this)">All</li>
+			<li id="2014" onclick="seasonAddSelectable(this)">2014</li>
+		<!-- 	<li id="2013" onclick="seasonAddSelectable(this)">2013</li>
+			<li id="2012" onclick="seasonAddSelectable(this)">2012</li> -->
 		</ul>
 	</div>
 	<div id="stats" class="outer-wrapper">
@@ -36,74 +39,77 @@
 		<span id="basic" class="inner-wrapper">
 			<h3>Basic</h3>
 			<ul class="select-list">
-				<li onclick="addSelectable(this)">MIN</li>
-				<li onclick="addSelectable(this)">FGM</li>
-				<li onclick="addSelectable(this)">FGA</li>
-				<li onclick="addSelectable(this)">FG%</li>
-				<li onclick="addSelectable(this)">FG3M</li>
-				<li onclick="addSelectable(this)">FG3A</li>
-				<li onclick="addSelectable(this)">FG3%</li>
-				<li onclick="addSelectable(this)">FTM</li>
-				<li onclick="addSelectable(this)">FTA</li>
-				<li onclick="addSelectable(this)">FT%</li>
-				<li onclick="addSelectable(this)">OREB</li>
-				<li onclick="addSelectable(this)">DREB</li>
-				<li onclick="addSelectable(this)">REB</li>
-				<li onclick="addSelectable(this)">ASST</li>
-				<li onclick="addSelectable(this)">STL</li>
-				<li onclick="addSelectable(this)">BLO</li>
-				<li onclick="addSelectable(this)">TO</li>
-				<li onclick="addSelectable(this)">PF</li>
-				<li onclick="addSelectable(this)">PTS</li>
-				<li onclick="addSelectable(this)">+/-</li>
+				<li onclick="addSelectable(this)" data-stat="MIN">MIN</li>
+				<li onclick="addSelectable(this)" data-stat="FGM">FGM</li>
+				<li onclick="addSelectable(this)" data-stat="FGA">FGA</li>
+				<li onclick="addSelectable(this)" data-stat="FG_PCT">FG%</li>
+				<li onclick="addSelectable(this)" data-stat="FG3M">FG3M</li>
+				<li onclick="addSelectable(this)" data-stat="FG3A">FG3A</li>
+				<li onclick="addSelectable(this)" data-stat="FG3_PCT">FG3%</li>
+				<li onclick="addSelectable(this)" data-stat="FTM">FTM</li>
+				<li onclick="addSelectable(this)" data-stat="FTA">FTA</li>
+				<li onclick="addSelectable(this)" data-stat="FT_PCT">FT%</li>
+				<li onclick="addSelectable(this)" data-stat="OREB">OREB</li>
+				<li onclick="addSelectable(this)" data-stat="DREB">DREB</li>
+				<li onclick="addSelectable(this)" data-stat="REB">REB</li>
+				<li onclick="addSelectable(this)" data-stat="AST">ASST</li>
+				<li onclick="addSelectable(this)" data-stat="STL">STL</li>
+				<li onclick="addSelectable(this)" data-stat="BLK">BLK</li>
+				<li onclick="addSelectable(this)" data-stat="TO">TO</li>
+				<li onclick="addSelectable(this)" data-stat="PF">PF</li>
+				<li onclick="addSelectable(this)" data-stat="PTS">PTS</li>
+				<li onclick="addSelectable(this)" data-stat="PLUS_MINUS">+/-</li>
 			</ul>
 		</span>
 		<span id="advanced" class="inner-wrapper middle">
 			<h3 >Advanced</h3>
 			<ul class="select-list">
-				<li onclick="addSelectable(this)">OFF Rating</li>
-				<li onclick="addSelectable(this)">DEF Rating</li>
-				<li onclick="addSelectable(this)">NET Rating</li>
-				<li onclick="addSelectable(this)">AST%</li>
-				<li onclick="addSelectable(this)">AST TOV</li>
-				<li onclick="addSelectable(this)">AST Ratio</li>
-				<li onclick="addSelectable(this)">OREB%</li>
-				<li onclick="addSelectable(this)">DREB%</li>
-				<li onclick="addSelectable(this)">REB%</li>
-				<li onclick="addSelectable(this)">TM TOV %</li>
-				<li onclick="addSelectable(this)">EFG%</li>
-				<li onclick="addSelectable(this)">TS</li>
-				<li onclick="addSelectable(this)">USG%</li>
-				<li onclick="addSelectable(this)">PACE</li>
-				<li onclick="addSelectable(this)">PIE</li>
+				<li onclick="addSelectable(this)" data-stat="OFF_RATING">OFF Rating</li>
+				<li onclick="addSelectable(this)" data-stat="DEF_RATING">DEF Rating</li>
+				<li onclick="addSelectable(this)" data-stat="NET_RATING">NET Rating</li>
+				<li onclick="addSelectable(this)" data-stat="AST_PCT">AST%</li>
+				<li onclick="addSelectable(this)" data-stat="AST_TOV">AST TOV</li>
+				<li onclick="addSelectable(this)" data-stat="AST_RATIO">AST Ratio</li>
+				<li onclick="addSelectable(this)" data-stat="OREB_PCT">OREB%</li>
+				<li onclick="addSelectable(this)" data-stat="DREB_PCT">DREB%</li>
+				<li onclick="addSelectable(this)" data-stat="REB_PCT">REB%</li>
+				<li onclick="addSelectable(this)" data-stat="TM_TOV_PCT">TM TOV %</li>
+				<li onclick="addSelectable(this)" data-stat="EFG_PCT">EFG%</li>
+				<li onclick="addSelectable(this)" data-stat="TS_PCT">TS</li>
+				<li onclick="addSelectable(this)" data-stat="USG_PCT">USG%</li>
+				<li onclick="addSelectable(this)" data-stat="PACE">PACE</li>
+				<li onclick="addSelectable(this)" data-stat="PIE">PIE</li>
 			</ul>
 		</span>
 		<span id="pt" class="inner-wrapper">
 			<h3>Player Tracking</h3>
 			<ul class="select-list">
-				<li onclick="addSelectable(this)">SPD</li>
-				<li onclick="addSelectable(this)">DIST</li>
-				<li onclick="addSelectable(this)">ORBC</li>
-				<li onclick="addSelectable(this)">DRBC</li>
-				<li onclick="addSelectable(this)">RBC</li>
-				<li onclick="addSelectable(this)">TCHS</li>
-				<li onclick="addSelectable(this)">SAST</li>
-				<li onclick="addSelectable(this)">FTAST</li>
-				<li onclick="addSelectable(this)">PASS</li>
-				<li onclick="addSelectable(this)">AST</li>
-				<li onclick="addSelectable(this)">CFGM</li>
-				<li onclick="addSelectable(this)">CFGA</li>
-				<li onclick="addSelectable(this)">CFG%</li>
-				<li onclick="addSelectable(this)">UFGM</li>
-				<li onclick="addSelectable(this)">UFGA</li>
-				<li onclick="addSelectable(this)">UFG%</li>
-				<li onclick="addSelectable(this)">FG%</li>
-				<li onclick="addSelectable(this)">DFGM</li>
-				<li onclick="addSelectable(this)">DFGA</li>
-				<li onclick="addSelectable(this)">DFG%</li>
+				<li onclick="addSelectable(this)" data-stat="SPD">SPD</li>
+				<li onclick="addSelectable(this)" data-stat="DIST">DIST</li>
+				<li onclick="addSelectable(this)" data-stat="ORBC">ORBC</li>
+				<li onclick="addSelectable(this)" data-stat="DRBC">DRBC</li>
+				<li onclick="addSelectable(this)" data-stat="RBC">RBC</li>
+				<li onclick="addSelectable(this)" data-stat="TCHS">TCHS</li>
+				<li onclick="addSelectable(this)" data-stat="SAST">SAST</li>
+				<li onclick="addSelectable(this)" data-stat="FTAST">FTAST</li>
+				<li onclick="addSelectable(this)" data-stat="PASS">PASS</li>
+				<li onclick="addSelectable(this)" data-stat="AST">AST</li>
+				<li onclick="addSelectable(this)" data-stat="CFGM">CFGM</li>
+				<li onclick="addSelectable(this)" data-stat="CFGA">CFGA</li>
+				<li onclick="addSelectable(this)" data-stat="CFG_PCT">CFG%</li>
+				<li onclick="addSelectable(this)" data-stat="UFGM">UFGM</li>
+				<li onclick="addSelectable(this)" data-stat="UFGA">UFGA</li>
+				<li onclick="addSelectable(this)" data-stat="UFG_PCT">UFG%</li>
+				<li onclick="addSelectable(this)" data-stat="FG_PCT">FG%</li>
+				<li onclick="addSelectable(this)" data-stat="DFGM">DFGM</li>
+				<li onclick="addSelectable(this)" data-stat="DFGA">DFGA</li>
+				<li onclick="addSelectable(this)" data-stat="DFG_PCT">DFG%</li>
 			</ul>
 		</span>
 	</div>
-	<canvas id="myChart"></canvas>
+	<!-- <div onclick="generatePlot()">CLICK ME</div> -->
+	<div onclick="drawPlot()">CLICK ME</div>
+	<!-- <canvas id="myChart"></canvas> -->
+	<div id="chart_div"></div>
 </body>
 </html>

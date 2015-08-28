@@ -1,39 +1,45 @@
-var data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-        {
-            label: "My First dataset",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80, 81, 56, 55, 40]
-        },
-        {
-            label: "My Second dataset",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [28, 48, 40, 19, 86, 27, 90]
-        }
-    ]
-};
+// var data = {
+//     labels: ["January", "February", "March", "April", "May", "June", "July"],
+//     datasets: [
+//         {
+//             label: "My First dataset",
+//             fillColor: "rgba(220,220,220,0.2)",
+//             strokeColor: "rgba(220,220,220,1)",
+//             pointColor: "rgba(220,220,220,1)",
+//             pointStrokeColor: "#fff",
+//             pointHighlightFill: "#fff",
+//             pointHighlightStroke: "rgba(220,220,220,1)",
+//             data: [65, 59, 80, 81, 56, 55, 40]
+//         },
+//         {
+//             label: "My Second dataset",
+//             fillColor: "rgba(151,187,205,0.2)",
+//             strokeColor: "rgba(151,187,205,1)",
+//             pointColor: "rgba(151,187,205,1)",
+//             pointStrokeColor: "#fff",
+//             pointHighlightFill: "#fff",
+//             pointHighlightStroke: "rgba(151,187,205,1)",
+//             data: [28, 48, 40, 19, 86, 27, 90]
+//         }
+//     ]
+// };
 
 
+var myLineChart;
+var ctx;
 
 // SEARCH BAR VARS
-var teams
-var teamNames
-// var teamIDs
-var players
-var playerNames
-// var playerIDs
-var selectables
+var teams;
+var teamNames;
+var players;
+var playerNames;
+var selectables;
+
+var statsSelected = [];
+var seasonsSelected;
+var playerOrTeam;
+var ptID;
+
 
 function getChildren(n, skipMe){
     var r = [];
@@ -54,7 +60,6 @@ function setNames() {
     teamIDs = [];
     for (team in teams) {
         teamNames.push({'value':teams[team]['team_city']+' '+teams[team]['team_name'], 'data': team})
-        // teamIDs.push(team)
     };
 
     players = mappings["players"];
@@ -62,7 +67,6 @@ function setNames() {
     playerIDs = []
     for (player in players) {
         playerNames.push({'value':players[player]['player_name'], 'data':player})
-        // playerIDs.push(player)
     };
 }
 
@@ -79,13 +83,20 @@ function determineLookup() {
     }
 }
 
-// function called when elem is clicked to make items selectable
+// function called handle adding selected class to stat fields
 function addSelectable(elem) {
     if (elem.classList.contains("selected")){
         elem.classList.remove("selected");
+        var index = statsSelected.indexOf(elem.dataset.stat);
+        statsSelected.splice(index, 1);
     }
     else {
-        elem.classList.add("selected");
+        if (statsSelected.length < 5) {
+            elem.classList.add("selected");
+            statsSelected.push(elem.dataset.stat);
+        } else {
+            alert("You can only plot at most 5 stats!");
+        }
     }
 }
 
@@ -113,7 +124,7 @@ function tpAddSelectable(elem) {
 }
 
 // function to handle adding selected class to seasons
-function sAddSelectable(elem) {
+function seasonAddSelectable(elem) {
     if (elem.id === 'all') {
         if (elem.classList.contains("selected")){
             return
@@ -143,16 +154,34 @@ function sAddSelectable(elem) {
     }
 }
 
+// function to populate selecetedSeasons var with all the seasons
+function genSelectedSeasons() {
+    seasonsSelected = [];
+    var allElem = document.getElementById('all');
+    var nextYear = allElem.nextElementSibling;
+    if (allElem.classList.contains('selected')) {
+        while (nextYear!=null) {
+            seasonsSelected.push(nextYear.innerHTML);
+            nextYear = nextYear.nextElementSibling;
+        }
+    } else {
+        while (nextYear!=null) {
+            if (nextYear.classList.contains('selected')) {
+                seasonsSelected.push(nextYear.innerHTML);
+            }
+            nextYear = nextYear.nextElementSibling;
+        }
+    }
+}
+
+
 
 
 
 window.onload = function() {
     // CHART STUFF
-    var ctx = document.getElementById("myChart").getContext("2d");
-    var myNewChart = new Chart(ctx).Line(data);
-
-    // MAKE ITEMS SELECTABLE
-    // makeSelectable();
+    // ctx = document.getElementById("myChart").getContext("2d");
+    // myLineChart = new Chart(ctx).Line(data);
 
     // SEARCH BAR STUFF
     setNames();
@@ -160,7 +189,13 @@ window.onload = function() {
     $('#autocomplete').autocomplete({
         lookup: determineLookup(),
         onSelect: function (suggestion) {
-            alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+            // alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+            ptID = suggestion.data;
+            if (document.getElementById('teams').classList.contains("selected")){
+                playerOrTeam = "teams";
+            } else {
+                playerOrTeam = "players";
+            }
         }
     });
 
