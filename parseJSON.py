@@ -2,6 +2,17 @@ import os
 import sys
 import json
 
+'''
+This is a script I wrote for a project I have been working on to gather and visualize NBA statistics. 
+This code opens up all the files in a directory related to given season, all of which are gathered in a different script and stored in JSON format as .txt files.
+Each file contains the information for a single game's statistics from that season.
+All those box scores are then reformatted and combined into a new JSON and saved in a new .txt file (visualizationData.txt)
+This new JSON formatted text file is then used later for a visualization of these NBA statistics. 
+The code also extends another JSON file (mappings.txt) while generating visualizationData.txt. This file is simply used as a dictionary to lookup player and team information later. 
+You can try out the project as it currently is at http://jaredsanchez.github.io/bballStats/layouts/index.html. You can also see all the code at https://github.com/jaredsanchez/nba_stats.
+I plan to continue adding data as well as features to the project. 
+'''
+
 
 def processBasicPlayersStats(bs_obj, data, mappings, home_team_id, vis_team_id, winning_team_id, game_id, game_date, game_season):
 	#basic players stats
@@ -69,8 +80,15 @@ def determineWinner(bs_obj):
 	winner = bs_obj['resultSets'][1]['rowSet'][0][3] if score1 > score2 else bs_obj['resultSets'][1]['rowSet'][1][3] #set winner to winning team's id
 	return str(winner)
 
+def merge_two_dicts(x, y):
+    #Given two dicts, merge them into a new dict as a shallow copy
+    z = x.copy()
+    z.update(y)
+    return z
 
 def main():
+	season = sys.argv[1] #grab season from command line arg, a single year corresponding to the start of the season
+
 	#create empty dict to add data to
 	data = {'players': {}, 'teams': {}}
 
@@ -80,12 +98,12 @@ def main():
 	mappings_obj = json.loads(mappings_text)
 
 	#get all box score files
-	bs_files = os.listdir('Data/BoxScores/regularSeason/2014/') #CONSIDER MAKING YEAR A SYS ARG
+	bs_files = os.listdir('Data/BoxScores/regularSeason/' + season + '/')
 
 	#loop through all box score files
 	for f in bs_files: 
 		#create boxscore object
-		bs_text = open('Data/BoxScores/regularSeason/2014/' + f).read()
+		bs_text = open('Data/BoxScores/regularSeason/' + season + '/' + f).read()
 		bs_obj = json.loads(bs_text)
 
 		#Game variables

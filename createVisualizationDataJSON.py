@@ -65,6 +65,11 @@ def processBasicTeamStats(bs_obj, data, mappings, home_team_id, vis_team_id, win
 
 		#creat dict for this game for this team in this season
 		stat_vals = team_stats[5:] #stats vals
+		
+		# convert minutes from a string into an integer
+		minutes_as_list = stat_vals[0].split(':')
+		stat_vals[0] = float(minutes_as_list[0] + '.' + str(int(minutes_as_list[1])/60))
+
 		stats = dict(zip(stat_keys, stat_vals))
 		data['teams'][team_id][game_season][game_id] = {'date': game_date, 'opponent': opp_abbr, 'home_or_away': h_a, 'stats': stats, 'win_or_loss': w_a}
 
@@ -244,8 +249,9 @@ def main():
 		processAdvancedTeamStats(bs_obj, data, game_id, game_season) #team advanced stats
 
 	#write data to visaulation file
-	f = open('Data/visualizationData.txt', 'w') #open file, creating or overwriting it
-	f.write(json.dumps(data)) #write response data to file
+	# f = open('Data/visualizationData.txt', 'w') #open file, creating or overwriting it
+	f = open('Data/visualizationData.js', 'w')
+	f.write('var visData = ' + json.dumps(data)) #write response data to file
 	f.close #close file
 
 	#write data to mappings file
